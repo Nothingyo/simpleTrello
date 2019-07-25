@@ -1,0 +1,27 @@
+.search{
+    input{
+        background-color: hsla(0,0%,100%,.3);
+        border-radius: 3px;
+        border: none;
+        box-shadow: none;
+        color: hsla(0,0%,100%,.5);
+        float: left;
+        font-size: 13px;
+        height: 30px;
+        line-height: 19px;
+        margin: 0;
+        padding-left: 8px;
+        padding-right: 30px;
+        width: 180px;
+    }
+    span{
+        img{
+            cursor: pointer;
+            height: 21px;
+            width: 21px;
+            position: relative;
+            left: -28px;
+            top: 6px
+        }
+    }
+}

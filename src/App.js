@@ -16,8 +16,8 @@ class App extends Component {
                         <Route exact path='/' exact component={Login} />
                         <Route path='/login' exact component={Login} />
                         {
-                            isLogin &&
-                            <Route path='/main' component={Main} />
+                            // isLogin &&
+                            <Route path='/main' exact component={Main} />
                         }
                     </Switch>
                 </BrowserRouter>

@@ -1,60 +1,64 @@
 import React, { Component } from 'react';
-import Main from './../main'
+// import Main from './../main'
 import { connect } from 'react-redux'
 import * as actionCreators from './store/actions'
 import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
 
-    state = {}
-
-    isStorage = () => {
-        if (localStorage.getItem('trelloEmail')) {
-            this.setState({
-                email: localStorage.getItem('trelloEmail'),
-                password: localStorage.getItem('trelloPassword'),
-                isLogin:true
-            })
-            console.log(this.state)
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: this.props.email,
+            password: this.props.password,
+            isLogin: this.props.isLogin,
         }
     }
 
-    componentWillMount() {
-        this.isStorage()
+    storageIsLogin = () => {
+        let isLogin = localStorage.getItem('isLogin')
+        if (isLogin) {
+            return true
+        }
+        return false
+
     }
 
-    componentDidMount() {
-        this.isStorage()
+    handleInputChange = e => {
+        const target = e.target
+        const value = target.value
+        const name = target.name
+
+        this.setState({
+            [name]: value
+        })
     }
 
-    handle = e => {
-        e.preventDefault()
+    fetchIsLogin = () => {
         let url = './trello.json'
-        let email = document.querySelector('#email')
-        let pwd = document.querySelector('#password')
-        
-        // let data = this.state
-        // console.log(this.state)
         // GET请求
         fetch(url)
             .then(res => res.json())
             .then(json => {
-                if (json.email === email.value && json.password === pwd.value) {
-                    localStorage.setItem('trelloEmail', json.email)
-                    localStorage.setItem('trelloPassword', json.password)
-                    this.setState({
-                        email: email.value,
-                        password: pwd.value,
-                        isLogin:true
-                    })
-                    // loginClick
-                    console.log('localStorage success')
-                }else{
-
+                const { loginClick, loginFail } = this.props
+                if (json.isLogin==="true") {
+                    loginClick()
+                } else {
+                    if (json.email === this.state.email && json.password === this.state.password) {
+                        // console.log('loginClick2')
+                        loginClick()
+                    } else {
+                        loginFail()
+                        console.log('loginStorage fail , email or passwod is wrong')
+                    }
                 }
             })
             .catch(error => console.error(error))
+    }
 
+    handleSubmit = e => {
+        e.preventDefault()
+        this.fetchIsLogin()
 
         // POST请求
         // fetch(url, {
@@ -69,23 +73,46 @@ class Login extends Component {
         // .then(response => console.log('Success:', response))
 
     }
+
+    componentWillMount() {
+        let isLogin=this.storageIsLogin()
+        if (!isLogin) {
+            this.fetchIsLogin()
+        }
+    }
+
+    // componentDidMount() {
+        
+    // }
+
     render() {
 
-        const { isLogin, loginClick } = this.props
+        const { isLogin} = this.props
         if (isLogin) {
             return <Redirect to="/main" />
         }
+        // console.log('this.state is ', this.state)
 
         return (
             <div className="loadContent">
                 <h1>登录到Trello</h1>
                 <form
-                    onSubmit={this.handle}
+                    onSubmit={this.handleSubmit}
                 >
                     <label>邮箱地址</label>
-                    <input type="email" name="email" id="email" />
+                    <input
+                        type="email"
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.handleInputChange}
+                    />
                     <label>密码</label>
-                    <input type="password" name="password" id="password" />
+                    <input
+                        type="password"
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.handleInputChange}
+                    />
                     <button type="submit" className="button" >登陆</button>
                 </form>
             </div>
@@ -94,15 +121,24 @@ class Login extends Component {
     }
 }
 
-function mapStateToProps(state , ownProps) {
+function mapStateToProps(state, ownProps) {
+    console.log(100, { state, ownProps })
     return {
-        isLogin:state.isLogin||ownProps.isLogin
+        isLogin: state.loginReducer.isLogin
     }
 }
 
 function mapDispatchToProps(dispatch) {
+    console.log(dispatch)
     return {
-        loginClick: () => dispatch(actionCreators.changeLogin)
+        loginClick: () => dispatch({
+            type: 'changeLogin',
+            value: true
+        }),
+        loginFail: () => dispatch({
+            type: 'loginFail',
+            value: false
+        })
     }
 }
 
