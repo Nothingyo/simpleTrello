@@ -1,0 +1,44 @@
+{
+    "bid":"1",
+    "length":"4",
+    "content":[
+        {
+            "cid":"1",
+            "title":"title1",
+            "detail":"detail1",
+            "list": [
+                {
+                    "lid":"1",
+                    "title":"card-title",
+                    "card":[
+                        {
+                            "cid":"1",
+                            "describtion":"describtion 1",
+                            "card-list":[
+                                {
+                                    "clid":"1",
+                                    "item":"item1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id":"2",
+            "title":"title2",
+            "detail":"detail2"
+        },
+        {
+            "id":"3",
+            "title":"title3",
+            "detail":"detail3"
+        },
+        {
+            "id":"4",
+            "title":"title4",
+            "detail":"detail4"
+        }
+    ]
+}

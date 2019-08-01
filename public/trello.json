@@ -1,5 +1,48 @@
 {
+    "uid":"1",
     "email":"1121181966@qq.com",
     "password":"123456",
-    "isLogin":"true"
+    "isLogin":"false",
+    "board":[
+        {
+            "bid":"1",
+            "title":"board-title1",
+            "list":[
+                {
+                    "lid":"1",
+                    "title":"list title",
+                    "card":[
+                        {
+                            "cid":"1",
+                            "title":"card title",
+                            "card-list":[
+                                {
+                                    "clid":"1",
+                                    "item":"card-list-item1"
+                                },
+                                {
+                                    "clid":"2",
+                                    "item":"card-list-item2"
+                                }
+                            ]
+                        }
+                    ]
+                }
+
+            ]
+
+        },
+        {
+            "bid":"2",
+            "title":"board-title2"
+        },
+        {
+            "bid":"3",
+            "title":"board-title3"
+        },
+        {
+            "bid":"4",
+            "title":"board-title4"
+        }
+    ]
 }
