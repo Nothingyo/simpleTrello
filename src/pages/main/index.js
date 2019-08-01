@@ -9,7 +9,7 @@ class Main extends Component{
         return (
             <div className="main">
                 <Header/>
-                <div>
+                <div style={{display:'flex'}}>
                     <Nav/>
                     <PersonalBoard/>
                 </div>

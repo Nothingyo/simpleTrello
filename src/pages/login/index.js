@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import Main from './../main'
 import { connect } from 'react-redux'
-import * as actionCreators from './store/actions'
 import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
@@ -10,9 +9,10 @@ class Login extends Component {
         super(props)
         this.state = {
             email: this.props.email,
-            password: this.props.password,
+            password: '',
             isLogin: this.props.isLogin,
         }
+        console.log(this.state)
     }
 
     storageIsLogin = () => {
@@ -34,31 +34,40 @@ class Login extends Component {
         })
     }
 
-    fetchIsLogin = () => {
-        let url = './trello.json'
-        // GET请求
-        fetch(url)
-            .then(res => res.json())
-            .then(json => {
-                const { loginClick, loginFail } = this.props
-                if (json.isLogin==="true") {
-                    loginClick()
-                } else {
-                    if (json.email === this.state.email && json.password === this.state.password) {
-                        // console.log('loginClick2')
-                        loginClick()
-                    } else {
-                        loginFail()
-                        console.log('loginStorage fail , email or passwod is wrong')
-                    }
-                }
+    async loginVerify(){
+        let url = 'http://localhost:2000/login'
+        let data={
+            "email":`${this.state.email}`,
+            "password":`${this.state.password}`
+            //传普通对象，数据库update会自动转换true/false为1/0
+            // isLogin:args,
+            // email:this.state.email
+        }
+        console.log('data is ',data)
+        let response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: new Headers({
+              'Content-Type': 'application/json'
             })
-            .catch(error => console.error(error))
+          })
+
+        let resJson = await response.json()
+        // console.log('resJson is ',resJson)
+        if(resJson.isLogin){
+            const {loginClick}=this.props
+            localStorage.setItem('isLogin','true')
+            localStorage.setItem('token',resJson.token)
+            loginClick()
+        }else{
+            console.log('email or password is wrong')
+        }
+
     }
 
     handleSubmit = e => {
         e.preventDefault()
-        this.fetchIsLogin()
+        this.loginVerify()
 
         // POST请求
         // fetch(url, {
@@ -75,19 +84,22 @@ class Login extends Component {
     }
 
     componentWillMount() {
-        let isLogin=this.storageIsLogin()
-        if (!isLogin) {
-            this.fetchIsLogin()
+        //本地是否记录上次登陆状态
+        let isLogin = this.storageIsLogin()
+        if(isLogin){
+            const {loginClick} = this.props
+            loginClick()
         }
+        
     }
 
     // componentDidMount() {
-        
+
     // }
 
     render() {
 
-        const { isLogin} = this.props
+        const { isLogin } = this.props
         if (isLogin) {
             return <Redirect to="/main" />
         }
@@ -105,6 +117,7 @@ class Login extends Component {
                         name="email"
                         value={this.state.email}
                         onChange={this.handleInputChange}
+                        required
                     />
                     <label>密码</label>
                     <input
@@ -112,6 +125,7 @@ class Login extends Component {
                         name="password"
                         value={this.state.password}
                         onChange={this.handleInputChange}
+                        required
                     />
                     <button type="submit" className="button" >登陆</button>
                 </form>
@@ -124,7 +138,9 @@ class Login extends Component {
 function mapStateToProps(state, ownProps) {
     console.log(100, { state, ownProps })
     return {
-        isLogin: state.loginReducer.isLogin
+        isLogin: state.loginReducer.isLogin,
+        email: state.loginReducer.email,
+        password: state.loginReducer.password
     }
 }
 

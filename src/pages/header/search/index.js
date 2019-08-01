@@ -5,11 +5,8 @@ import searchIconUrl from './../../../icons/search.png'
 
 class Search extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            searchContext: this.props.searchContext
-        }
+    state = {
+        searchContent: '',
     }
 
     handleInputChange = e => {
@@ -22,16 +19,36 @@ class Search extends Component {
         })
     }
 
+    handleSearch = () => {
+        let searchContent = this.state.searchContent
+        let url = './trello.json'
+        const { searchClick } = this.props
+        let jsonContent
+        fetch(url)
+        //can consume Response.json() only once, if you are consuming it more than once, the error will happen.
+            .then(res => res.json())
+            .then(
+                json=>{
+                    json.board.content.map(e=>{
+                        if(e.title===this.state.searchContent){
+                            searchClick(e.id)
+                        }
+                    })
+                }
+            )
+            .catch(error => console.error(error))
+    }
+
     render() {
         return (
             <div className="search">
                 <input
                     type="text"
-                    name="text"
-                    value={this.state.text}
+                    name="searchContent"
+                    value={this.state.searchContent}
                     onChange={this.handleInputChange}
                 />
-                <span>
+                <span onClick={this.handleSearch}>
                     <img src={searchIconUrl}></img>
                 </span>
             </div>
@@ -41,18 +58,19 @@ class Search extends Component {
 
 
 function mapStateToProps(state, ownProps) {
-    console.log(100, { state, ownProps })
+    console.log(64, { state, ownProps })
     return {
-        isLogin: state.loginReducer.isLogin
+        isLogin: state.loginReducer.isLogin,
+        isSearch:state.searchReducer.isSearch,
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    console.log(dispatch)
+    // console.log(dispatch)
     return {
-        loginOut: () => dispatch({
-            type: 'changeLogin',
-            value: false
+        searchClick: value => dispatch({
+            type: 'searchBoard',
+            value
         })
     }
 }

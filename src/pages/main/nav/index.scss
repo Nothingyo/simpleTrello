@@ -1,0 +1,32 @@
+.board{
+    width: 232px;
+    position: sticky;
+    top: 0px;
+    nav{
+        cursor: pointer;
+        border-radius: 3px;
+        background-color: #e4f0f6;
+        margin-top: 40px;
+        width: 232px;
+        height: 32px;
+        a{
+            color:#0079bf;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            .trello_icon{
+                position: relative;
+                top: 6px;
+                padding: 0 10px;
+                img{
+                    height: 18px;
+                    width:18px;
+                }
+            }
+            .title{
+                position: relative;
+                top:3px;
+            }
+        }
+    }
+}

@@ -17,8 +17,14 @@ const blankContent = [
 
 class LogoutBlank extends Component {
 
-    render() {
+    clickLogout = () =>{
         const {logOut}=this.props
+        localStorage.clear()
+        logOut()
+    }
+
+    render() {
+        
         return (
             <div className="logout_blank">
                 <div className="logout_name">
@@ -32,7 +38,7 @@ class LogoutBlank extends Component {
                             <li key={'e' + index}><a href="/login">{e.content}</a></li>
                         )
                     }
-                    <li key={'logout'} onClick={logOut}><a href='/login'>登出</a></li>
+                    <li key={'logout'} onClick={this.clickLogout}><a href='/login'>登出</a></li>
                 </ul>
 
             </div>
