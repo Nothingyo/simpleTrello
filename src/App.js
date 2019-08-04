@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Main from './pages/main'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import AddBoard from './pages/main/personalBoard/addBoard'
 
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
 
     render() {
         const { isLogin } = this.props
-        
+
         return (
             <div>
                 <BrowserRouter>
@@ -41,11 +42,12 @@ class App extends Component {
                         }
                         {
                             !isLogin &&
-                            <Redirect to='/'/>
+                            <Redirect to='/' />
                         }
 
                     </Switch>
                 </BrowserRouter>
+                <AddBoard></AddBoard>
             </div>
         )
 
@@ -53,7 +55,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-     console.log('App', { state, ownProps })
+    console.log('App', { state, ownProps })
     return {
         isLogin: state.loginReducer.isLogin
     }

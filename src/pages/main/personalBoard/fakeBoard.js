@@ -4,12 +4,12 @@ class BoardCard extends Component{
 
     constructor(props){
         super(props)
-        console.log('this.props is ',props)
+        //console.log('this.props is ',props)
     }
     
     render(){
         const {title,detail}=this.props.content
-        console.log('title and detail is',title,detail)
+        // console.log('title and detail is',title,detail)
         return (
             <li>
                 <a>
