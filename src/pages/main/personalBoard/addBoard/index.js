@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import './index.scss'
+import closeIconUrl from '../../../../icons/close.png'
 
 class AddBoard extends Component {
 
     state = {
-        boardtitle:''
+        boardtitle:'enter board title'
     }
     handleInputChange = e => {
         const target = e.target
@@ -14,14 +16,20 @@ class AddBoard extends Component {
         this.setState({
             [name]: value
         })
+        console.log('this.state.boardtitle is ',this.state.boardtitle)
     }
-    async addBoard(){
+    async addBoard() {
         let url = 'http://localhost:2000/fakeBoard/add'
+        let boards = []
         let token = localStorage.getItem('token')
+        const {fetchBoardAgainEnd} = this.props
+        let title={
+            title:`${this.state.boardtitle}`
+        }
         let response = await fetch(url,
             {
                 method: 'POST',
-                body: JSON.stringify({  }), // data can be `string` or {object}!
+                body: JSON.stringify(title), // data can be `string` or {object}!
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -29,15 +37,12 @@ class AddBoard extends Component {
             }
         )
         let data = await response.json()
-        console.log(data)
-        // if(data.addBoard){
-        //     let state=this.state.boards
-        //     state.push({
-        //         bid:data.bid,
-        //         title:data.title
-        //     })
-        // }
-        this.fetchBoard()
+        boards = data.boards
+    }
+
+    handleClick = e => {
+        e.preventDefault()
+        this.addBoard()
     }
 
     render() {
@@ -47,18 +52,31 @@ class AddBoard extends Component {
             <div className={isAddBoard?"add_board_show":"add_board_hide"}>
             {
                 isAddBoard &&
-                <div>
-                    <form>
+                <div className="add_board">
+                    <form
+                        
+                    >
                         <div>
                             <input 
+                                className="add_board_input"
                                 name="boardtitle"
                                 value={this.state.boardtitle} 
                                 onChange={this.handleInputChange}
+                                placeholder={'enter board title'}
                             >
                             </input>
-                            <button onClick={closeAddBoardClick}></button>
+                            <button className="close_add_board" onClick={closeAddBoardClick}><img src={closeIconUrl}></img></button>
                         </div>
-                        <button></button>
+                        <button 
+                            className={
+                                (this.state.boardtitle=='enter board title' || !this.state.boardtitle)?
+                                "create_new_board_forbid"
+                                :"create_new_board"
+                            }
+                            onClick={()=>this.addBoard()}
+                        >
+                            创建看板
+                        </button>
                     </form>
                 </div>
             }
@@ -67,9 +85,9 @@ class AddBoard extends Component {
     }
 }
 function mapStateToProps(state, ownProps) {
-    console.log('state is in 33',state)
+    // console.log('state is in 33',state)
     return {
-        isAddBoard:state.boardReducer.isAddBoard
+        isAddBoard:state.boardAddReducer.isAddBoard
     }
 }
 function mapDispatchToProps(dispatch) {

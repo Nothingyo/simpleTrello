@@ -33,7 +33,7 @@ class Logout extends Component{
 }
 
 function mapStateToProps(state, ownProps) {
-    console.log(100, { state, ownProps })
+    // console.log(100, { state, ownProps })
     return {
         isLogin: state.loginReducer.isLogin
     }

@@ -55,13 +55,13 @@ class App extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    console.log('App', { state, ownProps })
+    // console.log('App', { state, ownProps })
     return {
         isLogin: state.loginReducer.isLogin
     }
 }
 function mapDispatchToProps(dispatch) {
-    console.log(dispatch)
+    // console.log(dispatch)
     return {
         loginClick: () => dispatch({
             type: 'changeLogin',

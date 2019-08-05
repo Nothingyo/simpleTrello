@@ -1,0 +1,92 @@
+.add_board_show {
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    height: 100%;
+    z-index: 20;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    justify-content: center;
+
+    .add_board {
+        box-shadow: none;
+        border: none;
+        font-size: 16px;
+        color: #fff;
+        font-weight: 700;
+        margin: 24px 0;
+        padding: 24px;
+        height: 50px;
+        border-radius: 4px;
+
+        div {
+            background-color: #026aa7;
+            opacity: .85;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 4px;
+
+            .add_board_input {
+                margin-right: 48px;
+                margin-bottom: 10px;
+                border: none;
+                font-size: 16px;
+                font-weight: 700;
+                padding-left: 8px;
+                background: transparent;
+                border-radius: 3px;
+                color: #fff;
+
+                &:hover {
+                    border: none;
+                    font-size: 16px;
+                    font-weight: 700;
+                    line-height: 16px;
+                    background: transparent;
+                    border-radius: 2px;
+                    background-color: rgba(255, 255, 255, 0.55);
+                }
+                &::placeholder{
+                    color: #fff;
+                    font-weight: 100;
+                }
+            }
+
+            .close_add_board {
+                background-color: transparent;
+                margin: 0;
+                padding: 0;
+                position: relative;
+                top: -15px;
+                border-radius: 100%;
+
+                img {
+                    height: 20px;
+                    width: 20px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    button {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 3px;
+        margin-top: 10px;
+        padding: 8px 10px;
+        box-shadow: none;
+    }
+
+    .create_new_board_forbid {
+        color: #a5adba;
+        cursor: not-allowed;
+        background-color: #f4f5f7;
+    }
+
+    .create_new_board {
+        background-color: #5aac44;
+        color: #fff;
+        cursor: pointer;
+    }
+}

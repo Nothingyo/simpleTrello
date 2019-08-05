@@ -43,7 +43,7 @@ class Login extends Component {
             // isLogin:args,
             // email:this.state.email
         }
-        console.log('data is ',data)
+        // console.log('data is ',data)
         let response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(data), // data can be `string` or {object}!

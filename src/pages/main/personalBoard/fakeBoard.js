@@ -1,19 +1,33 @@
 import React,{Component} from 'react'
+import {Redirect} from 'react-router-dom'
 
 class BoardCard extends Component{
 
     constructor(props){
         super(props)
-        //console.log('this.props is ',props)
+        this.state={
+            isRedirect:false
+        }
+        console.log('this.props is ',props)
     }
     
+    showBoard = () =>{
+        this.setState={
+            isRedirect:true
+        }
+    }
+
     render(){
-        const {title,detail}=this.props.content
-        // console.log('title and detail is',title,detail)
+        const {title}=this.props.content
+        const {isRedirect} = this.state
+        // console.log('title is',title)
         return (
-            <li>
+            <li onClick={()=>this.showBoard()}>
                 <a>
                     <div className="board_title_detail">{title}</div>
+                    {
+                        isRedirect && <Redirect to='/board'/>
+                    }
                 </a>
             </li>
         )
