@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 // import Main from './../main'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import './index.scss'
+import ENV_ADDRESS from '../../address'
 
 class Login extends Component {
 
@@ -34,11 +36,11 @@ class Login extends Component {
         })
     }
 
-    async loginVerify(){
-        let url = 'http://localhost:2000/login'
-        let data={
-            "email":`${this.state.email}`,
-            "password":`${this.state.password}`
+    async loginVerify() {
+        let url = `http://${ENV_ADDRESS}:2000/login`
+        let data = {
+            "email": `${this.state.email}`,
+            "password": `${this.state.password}`
             //传普通对象，数据库update会自动转换true/false为1/0
             // isLogin:args,
             // email:this.state.email
@@ -48,18 +50,18 @@ class Login extends Component {
             method: 'POST',
             body: JSON.stringify(data), // data can be `string` or {object}!
             headers: new Headers({
-              'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             })
-          })
+        })
 
         let resJson = await response.json()
         // console.log('resJson is ',resJson)
-        if(resJson.isLogin){
-            const {loginClick}=this.props
-            localStorage.setItem('isLogin','true')
-            localStorage.setItem('token',resJson.token)
+        if (resJson.isLogin) {
+            const { loginClick } = this.props
+            localStorage.setItem('isLogin', 'true')
+            localStorage.setItem('token', resJson.token)
             loginClick()
-        }else{
+        } else {
             console.log('email or password is wrong')
         }
 
@@ -86,11 +88,11 @@ class Login extends Component {
     componentWillMount() {
         //本地是否记录上次登陆状态
         let isLogin = this.storageIsLogin()
-        if(isLogin){
-            const {loginClick} = this.props
+        if (isLogin) {
+            const { loginClick } = this.props
             loginClick()
         }
-        
+
     }
 
     // componentDidMount() {
@@ -106,28 +108,31 @@ class Login extends Component {
         // console.log('this.state is ', this.state)
 
         return (
-            <div className="loadContent">
+            <div className="login-content">
                 <h1>登录到Trello</h1>
                 <form
+                    className="login-form"
                     onSubmit={this.handleSubmit}
                 >
-                    <label>邮箱地址</label>
+                    <label className="login-label">邮箱地址</label>
                     <input
+                        className="login-input"
                         type="email"
                         name="email"
                         value={this.state.email}
                         onChange={this.handleInputChange}
                         required
                     />
-                    <label>密码</label>
+                    <label className="login-label">密码</label>
                     <input
+                        className="login-input"
                         type="password"
                         name="password"
                         value={this.state.password}
                         onChange={this.handleInputChange}
                         required
                     />
-                    <button type="submit" className="button" >登陆</button>
+                    <button type="submit" className="login-button" >登陆</button>
                 </form>
             </div>
         )

@@ -5,27 +5,11 @@ import Main from './pages/main'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import AddBoard from './pages/main/personalBoard/addBoard'
+import Board from './pages/board'
 
 
 class App extends Component {
 
-    fetchIsLogin = () => {
-        let url = './trello.json'
-        const { loginClick } = this.props
-        // GET请求
-        fetch(url)
-            .then(res => res.json())
-            .then(json => {
-                if (json.isLogin === "true") {
-                    loginClick()
-                }
-            })
-            .catch(error => console.error(error))
-    }
-
-    componentWillMount() {
-        this.fetchIsLogin()
-    }
 
     render() {
         const { isLogin } = this.props
@@ -44,10 +28,11 @@ class App extends Component {
                             !isLogin &&
                             <Redirect to='/' />
                         }
+                        <Route path='/board' exact component={Board}/>
 
                     </Switch>
                 </BrowserRouter>
-                <AddBoard></AddBoard>
+                <AddBoard/>
             </div>
         )
 

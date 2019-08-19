@@ -1,7 +1,6 @@
 
 const defaultState = {
     isAddBoard:false,
-    fetchBoardAgain:false,
     boards: [],
 }
 
@@ -11,11 +10,11 @@ export default (state=defaultState, action) => {
                 return Object.assign({},state,{
                     isAddBoard:action.isAddBoard,
                 })
-        case 'addBoard':
-            return Object.assign({},state,{
-                isAddBoard:action.isAddBoard,
-                boards:action.value
-            })
+        // case 'addBoard':
+        //     return Object.assign({},state,{
+        //         isAddBoard:action.isAddBoard,
+        //         boards:action.value
+        //     })
         case 'closeAddBoard':
             return Object.assign({},state,{
                 isAddBoard:action.isAddBoard,

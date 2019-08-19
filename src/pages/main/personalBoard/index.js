@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import personUrl from './../../../icons/person.png'
 import './index.scss'
-import BoardCard from './fakeBoard'
+import FakeBoard from './fakeBoard'
+import ENV_ADDRESS from '../../../address'
 
 const  NewBoard= (props) => {
 
@@ -25,7 +26,7 @@ class PersonalBoard extends Component {
     }
 
     async fetchBoard() {
-        let url = 'http://localhost:2000/fakeBoard'
+        let url = `http://${ENV_ADDRESS}:2000/fakeBoard`
         let boards = []
         let token = localStorage.getItem('token')
         let response = await fetch(url,
@@ -55,7 +56,7 @@ class PersonalBoard extends Component {
 
         const { isFetchBoard, boards } = this.state
         const {openAddBoard} = this.props
-        let boardCards = boards.map(e => <BoardCard key={e.bid + e.title} content={e} />)
+        let boardCards = boards.map(e => <FakeBoard key={e.bid + e.title} content={e} />)
 
         return (
             <div className="all_boards">
@@ -77,7 +78,7 @@ class PersonalBoard extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    // console.log('personalBoard', { state, ownProps })
+    console.log('personalBoard', { state, ownProps })
     return {
         // fetchBoardAgain:state.boardAddReducer.fetchBoardAgain,
         isAddBoard:state.boardAddReducer.isAddBoard
@@ -85,7 +86,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-    // console.log('dispatch is openAddBoard',dispatch)
+    console.log('dispatch is openAddBoard',dispatch)
     return {
         openAddBoard: () => dispatch({
             type: 'openAddBoard',

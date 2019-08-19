@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './index.scss'
 import closeIconUrl from '../../../../icons/close.png'
+import ENV_ADDRESS from '../../../../address'
 
 class AddBoard extends Component {
 
     state = {
-        boardtitle:'enter board title'
+        boardtitle:''
     }
     handleInputChange = e => {
         const target = e.target
@@ -19,10 +20,9 @@ class AddBoard extends Component {
         console.log('this.state.boardtitle is ',this.state.boardtitle)
     }
     async addBoard() {
-        let url = 'http://localhost:2000/fakeBoard/add'
-        let boards = []
+        let url = `http://${ENV_ADDRESS}:2000/fakeBoard/add`
         let token = localStorage.getItem('token')
-        const {fetchBoardAgainEnd} = this.props
+        let boards= []
         let title={
             title:`${this.state.boardtitle}`
         }
@@ -92,11 +92,11 @@ function mapStateToProps(state, ownProps) {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        addBoardClick: value=>dispatch({
-            type:'addBoard',
-            isAddBoard:false,
-            value
-        }),
+        // addBoardClick: value=>dispatch({
+        //     type:'addBoard',
+        //     isAddBoard:false,
+        //     value
+        // }),
         closeAddBoardClick:()=>dispatch({
             type:'closeAddBoard',
             isAddBoard:false

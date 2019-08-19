@@ -1,31 +1,31 @@
-import React,{ Component } from "react"
+import React, { Component } from "react"
 import { connect } from 'react-redux'
 import LogoutBlank from './blank'
 import './index.scss'
 
-class Logout extends Component{
+class Logout extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={
-            isLogin:this.props.isLogin,
-            isLogoutBlank:false
+        this.state = {
+            isLogin: this.props.isLogin,
+            isLogoutBlank: false
         }
     }
 
-    logoutBlank=()=>{
+    logoutBlank = () => {
         this.setState({
-            isLogoutBlank:!this.state.isLogoutBlank
+            isLogoutBlank: !this.state.isLogoutBlank
         })
     }
 
-    render(){
+    render() {
         return (
             <div className="logout">
                 <span className="avator" onClick={this.logoutBlank}></span>
                 {
                     this.state.isLogoutBlank &&
-                    <LogoutBlank/> 
+                    <LogoutBlank onClick={this.logoutBlank}/>
                 }
             </div>
         )

@@ -8,8 +8,7 @@ export default (state=defaultState, action) => {
     switch(action.type){
         case 'searchBoard':
             return Object.assign({},state,{
-                boardId:action.value,
-                isSearch:true
+                isSearch:action.isSearch
             })
         default:
             return state

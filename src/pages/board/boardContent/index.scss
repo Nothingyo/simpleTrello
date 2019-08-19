@@ -1,0 +1,104 @@
+.board_canvas {
+    margin-top: 8px;
+
+    .isAddList_off {
+        font-size: 14px;
+        line-height: 14px;
+        color: #fff;
+        display: inline-block;
+        margin-left: 8px;
+        .isAddList_div_off {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, .12);
+            border-radius: 4px;
+            width: 265px;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, .2);
+            }
+
+            .isAddList_span_off {
+                img {
+                    height: 18px;
+                    width: 18px;
+                    position: relative;
+                    top: 3px;
+                    padding-left: 6px;
+                }
+            }
+
+            p {
+                display: inline-block;
+                margin-left: 2px;
+            }
+
+        }
+
+        .isAddList_form {
+            display: none;
+        }
+    }
+
+    .isAddList_on {
+        display: inline-block;
+        margin-left: 8px;
+        .isAddList_div_off {
+            display: none;
+        }
+
+        .isAddList_form {
+            width: 272px;
+            display: inline-block;
+            vertical-align: top;
+            white-space: nowrap;
+            background-color: #dfe1e6;
+            border-radius: 3px;
+            box-sizing: border-box;
+            padding: 4px;
+
+            .isAddList_input {
+                background: #fff;
+                border: none;
+                box-shadow: inset 0 0 0 2px #0079bf;
+                display: block;
+                margin: 0;
+                transition: margin 85ms ease-in, background 85ms ease-in;
+                width: 100%;
+                box-sizing: border-box;
+                border-radius: 3px;
+                font-size: 14px;
+                padding: 8px 12px;
+                margin-bottom: 4px;
+            }
+
+            .isAddList_button {
+                background-color: #5aac44;
+                box-shadow: none;
+                border: none;
+                color: #fff;
+                border-radius: 3px;
+                float: left;
+                min-height: 30px;
+                height: 30px;
+                margin-top: 0;
+                padding: 4px 12px;
+                margin-right: 4px;
+                cursor: pointer;
+            }
+
+            .isAddList_close {
+                display: inline-block;
+                height: 30px;
+                line-height: 30px;
+                font-size: 30px;
+
+                img {
+                    height: 24px;
+                    width: 24px;
+                    cursor: pointer;
+                }
+
+            }
+        }
+    }
+}

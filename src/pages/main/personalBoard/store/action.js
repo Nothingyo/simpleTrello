@@ -1,8 +1,8 @@
-export const addBoard = value => ({
-    type: 'addBoard',
-    isAddBoard: false,
-    value
-})
+// export const addBoard = value => ({
+//     type: 'addBoard',
+//     isAddBoard: false,
+//     value
+// })
 
 export const closeAddBoard = () =>({
     type:'closeAddBoard',
