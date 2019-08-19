@@ -20,23 +20,10 @@ class Search extends Component {
     }
 
     handleSearch = () => {
-        let searchContent = this.state.searchContent
-        let url = './trello.json'
-        const { searchClick } = this.props
-        let jsonContent
-        fetch(url)
-        //can consume Response.json() only once, if you are consuming it more than once, the error will happen.
-            .then(res => res.json())
-            .then(
-                json=>{
-                    json.board.content.map(e=>{
-                        if(e.title===this.state.searchContent){
-                            searchClick(e.id)
-                        }
-                    })
-                }
-            )
-            .catch(error => console.error(error))
+        const {getBoardId,gotoBoard,searchClick}=this.props
+        getBoardId(this.state.searchContent)
+        gotoBoard()
+        searchClick()
     }
 
     render() {
@@ -68,9 +55,17 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     // console.log(dispatch)
     return {
-        searchClick: value => dispatch({
+        searchClick: () => dispatch({
             type: 'searchBoard',
-            value
+            isSearch:true
+        }),
+        getBoardId: boardId => dispatch({
+            type: 'getBoardId',
+            boardId
+        }),
+        gotoBoard: () => dispatch({
+            type: 'isShowBoard',
+            isShowBoard: true
         })
     }
 }

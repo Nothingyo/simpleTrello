@@ -2,7 +2,7 @@ import React,{ Component } from "react"
 import Logout from './logout'
 import Search from './search'
 import Home from './home'
-import style from './index.scss'
+import './index.scss'
 
 class Header extends Component{
     render(){

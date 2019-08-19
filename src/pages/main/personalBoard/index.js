@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import personUrl from './../../../icons/person.png'
 import './index.scss'
-import BoardCard from './fakeBoard'
+import FakeBoard from './fakeBoard'
+import ENV_ADDRESS from '../../../address'
 
-const NewBoard = ()=>{
-    return(
-        <li>
+const  NewBoard= (props) => {
+
+    return (
+        <li onClick={props.onClick}>
             <a>
-            <div className="board_title_detail">
-                <p>创建新看板</p>
-            </div>
+                <div className="board_title_detail">
+                    <p>创建新看板</p>
+                </div>
             </a>
         </li>
     )
@@ -23,42 +25,38 @@ class PersonalBoard extends Component {
         boards: []
     }
 
-    async fetchBoard () {
-        let url = './trello.json'
+    async fetchBoard() {
+        let url = `http://${ENV_ADDRESS}:2000/fakeBoard`
         let boards = []
-
-        let response = await fetch(url)
+        let token = localStorage.getItem('token')
+        let response = await fetch(url,
+            {
+                method: 'POST',
+                body: JSON.stringify({}), // data can be `string` or {object}!
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                })
+            }
+        )
         let data = await response.json()
-        boards = data.board
+        boards = data.boards
         this.setState({
             isFetchBoard: true,
             boards
         })
-        // fetch(url)
-        //     .then(res => res.json())
-        //     .then(json => {
-        //         //boardNumber = eval(json.board.length)
-        //         boards = json.board
-        //         //console.log('boards and boardNumber is ',boards,boardNumber)
-        //         // json.board.content.map(e=>{
-        //         //     boards.push(e)
-        //         // })
-        //         this.setState({
-        //             isFetchBoard: true,
-        //             boards
-        //         })
-        //     })
-        //     .catch(error => console.log(error))
     }
 
     componentWillMount() {
         this.fetchBoard()
     }
 
+
     render() {
 
         const { isFetchBoard, boards } = this.state
-        let boardCards = boards.map(e => <BoardCard key={e.bid} content={e} />)
+        const {openAddBoard} = this.props
+        let boardCards = boards.map(e => <FakeBoard key={e.bid + e.title} content={e} />)
 
         return (
             <div className="all_boards">
@@ -71,7 +69,7 @@ class PersonalBoard extends Component {
                         {
                             isFetchBoard && boardCards
                         }
-                        <NewBoard/>
+                        <NewBoard onClick={openAddBoard} />
                     </ul>
                 </div>
             </div>
@@ -79,4 +77,22 @@ class PersonalBoard extends Component {
     }
 }
 
-export default connect()(PersonalBoard)
+function mapStateToProps(state, ownProps) {
+    console.log('personalBoard', { state, ownProps })
+    return {
+        // fetchBoardAgain:state.boardAddReducer.fetchBoardAgain,
+        isAddBoard:state.boardAddReducer.isAddBoard
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    console.log('dispatch is openAddBoard',dispatch)
+    return {
+        openAddBoard: () => dispatch({
+            type: 'openAddBoard',
+            isAddBoard: true
+        })
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PersonalBoard)

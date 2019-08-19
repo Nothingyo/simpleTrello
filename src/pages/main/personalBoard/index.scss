@@ -28,18 +28,16 @@
             margin: 0 0 16px 0;
             li{
                 cursor: pointer;
-                margin: 0px 10px 20px 0;
+                margin: 0px 20px 20px 0;
                 a{
                     border-radius: 3px;
                     display: block;
                     width: 155px;
                     height: 96px;
                     overflow: hidden;
-                    span{
-                    }
+                    background-color: rgba(0,0,0,.15);
                     .board_title_detail{
                         height: 95px;
-                        background-color: rgba(0,0,0,.15);
                         margin: 0 10px 0 0;
                         padding: 8px;
                         border-radius: 3px;

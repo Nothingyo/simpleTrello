@@ -4,31 +4,16 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Main from './pages/main'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import AddBoard from './pages/main/personalBoard/addBoard'
+import Board from './pages/board'
 
 
 class App extends Component {
 
-    fetchIsLogin = () => {
-        let url = './trello.json'
-        const { loginClick } = this.props
-        // GET请求
-        fetch(url)
-            .then(res => res.json())
-            .then(json => {
-                if (json.isLogin === "true") {
-                    loginClick()
-                }
-            })
-            .catch(error => console.error(error))
-    }
-
-    componentWillMount() {
-        this.fetchIsLogin()
-    }
 
     render() {
         const { isLogin } = this.props
-        
+
         return (
             <div>
                 <BrowserRouter>
@@ -41,11 +26,13 @@ class App extends Component {
                         }
                         {
                             !isLogin &&
-                            <Redirect to='/'/>
+                            <Redirect to='/' />
                         }
+                        <Route path='/board' exact component={Board}/>
 
                     </Switch>
                 </BrowserRouter>
+                <AddBoard/>
             </div>
         )
 
@@ -53,13 +40,13 @@ class App extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-     console.log('App', { state, ownProps })
+    // console.log('App', { state, ownProps })
     return {
         isLogin: state.loginReducer.isLogin
     }
 }
 function mapDispatchToProps(dispatch) {
-    console.log(dispatch)
+    // console.log(dispatch)
     return {
         loginClick: () => dispatch({
             type: 'changeLogin',

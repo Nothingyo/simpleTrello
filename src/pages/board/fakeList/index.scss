@@ -1,0 +1,46 @@
+.list-wrapper {
+    margin-left: 8px;
+    width: 272px;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+
+    .fake-list {
+        background-color: #dfe1e6;
+        border-radius: 3px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        max-height: 100%;
+        position: relative;
+        white-space: normal;
+
+        .list-header {
+            color: #172b4d;
+            padding-left: 10px;
+            font-weight: 500;
+            font-size: 16px;
+            margin:8px 0;
+        }
+
+        .open-card-composer {
+
+            .add-icon {
+                position: relative;
+                top: 2px;
+                padding-right: 4px;
+                width: 20px;
+            }
+
+            .add-another-card {
+                font-size: 14px;
+                color: #fff;
+                position: relative;
+                bottom: 3px;
+                cursor: pointer;
+            }
+        }
+    }
+}

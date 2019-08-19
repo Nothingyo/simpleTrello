@@ -8,13 +8,15 @@
         width: 32px;
     }
     .logout_blank{
-        left: 475px;
+        float: right;
+        right:0;
         top: 42px;
         width: 304px;
         background: #fff;
         border-radius: 3px;
         position: absolute;
         color: #172b4d;
+        box-shadow: 0 8px 16px -4px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
         .logout_name{
             span{
                 position: relative;
@@ -22,18 +24,31 @@
             }
             button{
                 float:right;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                border-radius: 2px;
+                padding: 0;
+                .close_icon_button{
+                    width: 20px;
+                    height: 20px;
+                }
+                &:hover{
+                    background-color: #e4f0f6;
+                }
             }
         }
         .logout_blank_ul{
             padding: 0;
-                li{
+                .logout-blank-li{
                     &:hover{
                         background-color: #e4f0f6;
                     }
                     list-style: none;
                     cursor: pointer;
                     padding: 6px 12px;
-                    a{
+                    .logout-blank-a{
+                        color: #172b4d;
                         text-decoration: none;
                         font-size: 14px;
                         line-height: 20px;
